@@ -3,14 +3,14 @@ import { onMounted } from 'vue'
 
 function getStravaAuthUrl() {
 	const clientId = import.meta.env.VITE_STRAVA_CLIENT_ID
-	const redirectUri = `https://${window.location.hostname}/auth`
+	const redirectUri = `http://${window.location.host}/auth`
 	const responseType = 'code'
 	const approvalPrompt = 'auto'
 	const scope = 'activity:read_all,activity:write'
-	const state = 'custom_state_value'
 
-	return `https://www.strava.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=${responseType}&approval_prompt=${approvalPrompt}&scope=${scope}&state=${state}`
+	return `https://www.strava.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=${responseType}&approval_prompt=${approvalPrompt}&scope=${scope}`
 }
+
 onMounted(() => {
 	const authUrl = getStravaAuthUrl()
 	window.location.href = authUrl
