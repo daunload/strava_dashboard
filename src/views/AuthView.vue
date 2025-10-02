@@ -4,27 +4,18 @@
 	</main>
 </template>
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-// import { useLocalStorage } from '@/composables/useLocalStorage'
-import { get } from '@/services/http'
+import { useRoute, useRouter } from 'vue-router'
+import { useLocalStorage } from '@/composables/useLocalStorage'
+// import { get } from '@/services/http'
 
 const route = useRoute()
-// const router = useRouter()
+const router = useRouter()
 
-onMounted(() => {
-	const code = route.query.code
+const accesssToken = useLocalStorage('access_token', '')
+if (route.query.token) {
+	const accessToken = route.query.token as string
+	accesssToken.value = accessToken
 
-	if (typeof code === 'string') {
-		get('/token', { params: { code } })
-			.then((res) => {
-				console.log(res)
-			})
-			.catch((err) => {
-				console.error('Error fetching token:', err)
-			})
-	} else {
-		console.error('Authorization code not found in URL')
-	}
-})
+	router.replace({ path: '/dashboard' })
+}
 </script>
