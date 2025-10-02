@@ -6,7 +6,6 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import { useLocalStorage } from '@/composables/useLocalStorage'
-// import { get } from '@/services/http'
 
 const route = useRoute()
 const router = useRouter()
